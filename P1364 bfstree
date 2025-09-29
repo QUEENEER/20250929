@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+#include <cstdlib>
+using namespace std;
+#define int long long
+#define piii pair<int,int>
+//sort(puch,puch+n,greater<int>());
+struct place{
+	int u,v;
+};
+vector<place>s;
+bool cmp(place x,place y){
+	if(x.v==y.v){
+		return x.u<y.u;
+	}
+	else return x.v<y.v;
+}
+int t,w,a1,a2,b1,b2;
+
+int num[1001];
+int g[1001][1001];
+int v[1001];
+int dx[4]={1,-1,0,0}, dy[4]={0,0,1,-1};
+int bfs(int n){
+	int ans=0;
+	memset(v,0,sizeof(v));
+	queue<place>q;
+	q.push({n,0});
+	v[n]=1;
+	while(!q.empty()){
+		place now=q.front();
+		q.pop();
+		for(int i=1;i<=t;i++){
+			if(g[now.u][i]&&!v[i]){
+				place next={i,now.v+1};
+				ans+=num[i]*next.v;
+				v[i]=1;
+				q.push(next);
+			}
+			
+		}
+	}
+	return ans;
+	
+}
+signed main(){
+	cin>>t;
+	for(int i=1;i<=t;i++){
+		int a,b,c;
+		cin>>a>>b>>c;
+		num[i]=a;
+		if(b){
+			g[i][b]=g[b][i]=1;
+		}
+		if(c){
+			g[i][c]=g[c][i]=1;
+		}
+	}
+	int sum=1<<20;
+	for(int i=1;i<=t;i++){
+		sum=min(sum,bfs(i));
+	}
+	cout<<sum<<endl;
+}      
