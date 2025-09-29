@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+#include <cstdlib>
+using namespace std;
+#define int long long
+#define piii pair<int,int>
+//sort(puch,puch+n,greater<int>());
+struct place{
+	int u,v;
+};
+vector<place>s;
+bool cmp(place x,place y){
+	if(x.v==y.v){
+		return x.u<y.u;
+	}
+	else return x.v<y.v;
+}
+int n,w,a1,a2,b1,b2;
+int ans=0;
+int arr[1001];
+int sum[1001];
+int puch[1001];
+int dx[4]={1,-1,0,0}, dy[4]={0,0,1,-1};
+void dfs(int u,int v,int w){
+	if(u==7){
+		if(v==0&&w==0){
+			ans++;
+		}
+		return;
+	}
+	
+	for(int i=0;i<=v;i++){
+		for(int j=0;j<=w;j++){
+			if(i+j>=2&&i+j<=5){
+				dfs(u+1,v-i,w-j);
+			}
+		}
+	}
+	
+	
+}
+signed main(){
+	
+	dfs(0,9,16);
+	cout<<ans<<endl;
+}      
